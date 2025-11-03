@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Tank.h"
 
 #include "Camera/CameraComponent.h"
@@ -21,8 +18,6 @@ void ATank::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerControllerRef = Cast<APlayerController>(GetController());
-
-	
 }
 
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -31,6 +26,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATank::Move);
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
+	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &ATank::Fire);
 }
 
 void ATank::Tick(float DeltaTime)
@@ -46,15 +42,7 @@ void ATank::Tick(float DeltaTime)
 			HitResult
 			);
 
-		DrawDebugSphere(
-		GetWorld(),
-		HitResult.ImpactPoint,
-		25.f,
-		12,
-		FColor::Red,
-		false,
-		-1.f
-	);
+		RotateTurret(HitResult.ImpactPoint);
 	}
 }
 

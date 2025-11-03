@@ -20,7 +20,7 @@ public:
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	virtual void Tick(float DeltaTime) override;
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
 	
 private:
@@ -36,6 +36,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float TurnRate = 45.f;
 
+	UPROPERTY()
 	APlayerController* PlayerControllerRef;
 
 	void Move(float value);
