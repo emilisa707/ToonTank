@@ -18,7 +18,11 @@ public:
 	ATank();
 
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-
+	virtual void Tick(float DeltaTime) override;
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	
 private:
 	UPROPERTY(VisibleAnywhere, Category= "Components")
 	class USpringArmComponent* SpringArm;
@@ -31,6 +35,8 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float TurnRate = 45.f;
+
+	APlayerController* PlayerControllerRef;
 
 	void Move(float value);
 	void Turn(float value);
