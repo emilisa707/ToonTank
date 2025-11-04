@@ -18,6 +18,12 @@ void ATower::BeginPlay()
 	GetWorldTimerManager().SetTimer(FireRateTimerHandle, this, &ATower::CheckFireCondition, FireRate, true);
 }
 
+void ATower::HandleDestruction()
+{
+	Super::HandleDestruction();
+	Destroy();
+}
+
 void ATower::CheckFireCondition()
 {
 	if (InFireRange())
@@ -30,7 +36,7 @@ bool ATower::InFireRange() const
 {
 	if (TankRef)
 	{
-		return  FVector::Dist(this->GetActorLocation(), TankRef->GetActorLocation()) <= FireRate ;
+		return  FVector::Dist(this->GetActorLocation(), TankRef->GetActorLocation()) <= FireRange ;
 	}
 	return false;
 }

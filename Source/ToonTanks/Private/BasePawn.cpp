@@ -3,6 +3,7 @@
 
 #include "BasePawn.h"
 
+#include "Projectile.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -25,6 +26,15 @@ ABasePawn::ABasePawn()
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 }
 
+void ABasePawn::HandleDestruction()
+{
+}
+
+void ABasePawn::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
 void ABasePawn::RotateTurret(FVector LookAtTarget) const
 {
 	const FVector ToTarget = LookAtTarget - TurretMesh->GetComponentLocation();
@@ -34,7 +44,9 @@ void ABasePawn::RotateTurret(FVector LookAtTarget) const
 
 void ABasePawn::Fire()
 {
-	const FVector ProjectileSpawnPointLocation = ProjectileSpawnPoint->GetComponentLocation();
-	DrawDebugSphere(GetWorld(), ProjectileSpawnPointLocation, 25.f, 12, FColor::Red, false, 3.f);
+	const FVector Location = ProjectileSpawnPoint->GetComponentLocation();
+	const FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
+	AActor* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
+	Projectile->SetOwner(this);
 }
 

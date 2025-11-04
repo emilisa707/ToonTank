@@ -14,9 +14,11 @@ class TOONTANKS_API ATower : public ABasePawn
 public:
 	ATower();
 	virtual void Tick(float DeltaTime) override;
+	virtual void HandleDestruction() override;
 
 protected:
 	virtual void BeginPlay() override;
+
 
 private:
 	UPROPERTY()

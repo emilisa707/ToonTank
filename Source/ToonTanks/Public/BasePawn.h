@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "BasePawn.generated.h"
 
+class AProjectile;
+
 UCLASS()
 class TOONTANKS_API ABasePawn : public APawn
 {
@@ -14,7 +16,10 @@ class TOONTANKS_API ABasePawn : public APawn
 public:
 	ABasePawn();
 
+	virtual void HandleDestruction();
+
 protected:
+	virtual void BeginPlay() override;
 	void RotateTurret(FVector LookAtTarget) const;
 	void Fire();
 
@@ -30,4 +35,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawnPoint;
+
+	UPROPERTY(EditDefaultsOnly, category = "Projectile")
+	TSubclassOf<AProjectile> ProjectileClass;
 };

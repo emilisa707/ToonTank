@@ -19,8 +19,10 @@ public:
 
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	virtual void Tick(float DeltaTime) override;
-protected:
+	virtual void HandleDestruction() override;
 
+	FORCEINLINE APlayerController* GetTankPlayerController() const { return PlayerControllerRef;}
+protected:
 	virtual void BeginPlay() override;
 	
 private:
